@@ -63,8 +63,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if(isset($_SESSION['Uid'])){ ?>
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?= $_SESSION['Uname'] ?></a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> loguot</a></li>
+        <li><a href="account.php"><span class="glyphicon glyphicon-user"></span> <?= $_SESSION['Uname'] ?></a></li>
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> logout</a></li>
         <?php } else { ?>
         <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="registrar.php"><span class="glyphicon glyphicon-plus"></span> registrar</a></li>

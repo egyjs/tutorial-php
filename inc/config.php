@@ -25,7 +25,12 @@ if ($conn->query($sql) === TRUE) {
 } else {
     //echo "Error creating table: " . $conn->error;
 }
-
+$sql2 = "ALTER TABLE `users` ADD `u_level` INT NOT NULL DEFAULT '0' AFTER `u_pass`";
+if ($conn->query($sql2) === TRUE) {
+    echo "u_level created successfully";
+} else {
+    //echo "Error creating table: " . $conn->error;
+}
 //$sql = "SELECT id, firstname, lastname FROM MyGuests";
 //$result = $conn->query($sql);
 //

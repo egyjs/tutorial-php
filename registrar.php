@@ -1,5 +1,8 @@
 <?php include 'inc/header.php'; ?>
 <?php
+if(isset($_SESSION['Uid'])){
+    header('Location: index.php');
+}
 if(isset($_POST['sub'])){
     $name     = $_POST['name'];
     $email    = $_POST['email'];
@@ -10,6 +13,11 @@ if(isset($_POST['sub'])){
         echo 'Sorry, please enter all fields';
         
     }else{
+        $selectuser = "SELECT * FROM `users`";
+        $resultuser = $conn->query($selectuser);
+        if($resultuser->num_rows == 0){
+           $admin = 1;
+        }
         $selectAll = "SELECT * FROM `users` WHERE u_email='$email' AND u_pass='$password'";
         $result    = $conn->query($selectAll);
         if($result->num_rows > 0){
@@ -20,7 +28,7 @@ if(isset($_POST['sub'])){
         }elseif ($pass2 != $password) {
             echo 'Passwords don\'t match';
         } else {
-          $sqlUSER = "INSERT INTO `users` (`u_id`, `u_name`, `u_email`, `u_pass`) VALUES (NULL, '$name', '$email', '$password');";  
+          $sqlUSER = "INSERT INTO `users` (`u_id`, `u_name`, `u_email`, `u_pass`, `u_level`) VALUES (NULL, '$name', '$email', '$password', '".@$admin."');";  
           $conn->query($sqlUSER);
           echo 'Great, you have registered with us';
         }

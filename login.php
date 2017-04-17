@@ -18,6 +18,7 @@ if(isset($_POST['go'])){
                    $_SESSION['Uname'] = $row['u_name'];
                    $_SESSION['Uemail'] = $row['u_email'];
                    $_SESSION['Upass'] = $row['u_pass'];
+                   $_SESSION['Ulevel'] = $row['u_level'];
                    header('Location: index.php');
                 }
         }

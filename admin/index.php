@@ -6,6 +6,12 @@ if($_SESSION['Ulevel'] != 1){
 $sqlgetusers = "SELECT * FROM `users`";
 $getuser     = $conn->query($sqlgetusers);
 
+if(isset($_GET['DU'])){
+    $Did = $_GET['DU'];
+    $sqlDelete = "DELETE FROM `users` WHERE `u_id` = $Did";
+    $conn->query($sqlDelete);
+    header("location: index.php");
+}
 
 ?>
 <style>
@@ -86,7 +92,7 @@ a {
                                 <th><span>ID</span></th>
                                 <th class="text-center"><span>Status</span></th>
                                 <th><span>Email</span></th>
-                                <th>&nbsp;</th>
+                                <th><span>Action</span></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,27 +117,31 @@ a {
                                     <td>
                                         <a href="#"><?= $row['u_email'] ?></a>
                                     </td>
-                                    <td style="width: 20%;">
-                                        <a href="#" class="table-link">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="table-link">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="table-link danger">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
+                                    <td>
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?= $row['u_id'] ?>">Delete user</button>
                                     </td>
                                 </tr>
+                                 <!-- Modal -->
+  <div class="modal fade" id="myModal<?= $row['u_id'] ?>" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Delete "<?= $row['u_name']  ?>"</h4>
+        </div>
+        <div class="modal-body">
+          <p>Do you really want to delete this member?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <a href="?DU=<?= $row['u_id'] ?>" class="btn btn-primary" >Delete user</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
                                 <?php } ?>
                             </tbody>
                         </table>
